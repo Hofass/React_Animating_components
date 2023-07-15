@@ -5,6 +5,11 @@ import Modal from "./components/Modal/Modal";
 import Backdrop from "./components/Backdrop/Backdrop";
 import List from "./components/List/List";
 
+const animatingTime = {
+	enter: 400,
+	exit: 1000,
+};
+
 class App extends Component {
 	state = {
 		modalIsOpen: false,
@@ -31,7 +36,11 @@ class App extends Component {
 					Toggle
 				</button>
 				<br />
-				<Transition in={this.state.showBlock} timeout={300} mountOnEnter unmountOnExit>
+				<Transition
+					in={this.state.showBlock}
+					timeout={animatingTime}
+					mountOnEnter
+					unmountOnExit>
 					{state => (
 						<div
 							style={{
@@ -39,20 +48,20 @@ class App extends Component {
 								width: 100,
 								height: 100,
 								margin: "auto",
-								transition:"opacity 1s ease-out",
+								transition: "opacity 1s ease-out",
 								opacity: state === "exiting" ? 0 : 1,
 							}}></div>
 					)}
 				</Transition>
-				<Transition in={this.state.modalIsOpen} timeout={300} mountOnEnter unmountOnExit>
-				{state=>(
-					<Modal show={state} closed={this.closeModal} />
-				)}
+				<Transition
+					in={this.state.modalIsOpen}
+					timeout={animatingTime}
+					mountOnEnter
+					unmountOnExit>
+					{state => <Modal show={state} closed={this.closeModal} />}
 				</Transition>
-				
-				{this.state.modalIsOpen ? (
-					<Backdrop show/>
-				) : null}
+
+				{this.state.modalIsOpen ? <Backdrop show /> : null}
 				<button className='Button' onClick={this.showModal}>
 					Open Modal
 				</button>
